@@ -8,12 +8,6 @@ definePageMeta({
 
 </script>
 
-<!--<div class="side-nav"> <div class="side-nav-sticky-container> INSERT CONTENT HERE </div> </div>-->
-
-<!--.side-nav { position: relative; display: flex; flex-direction: column; width: 192px; min-width: 192px; }-->
-
-<!--.side-nav-sticky-container { position: sticky; top: 0; width: auto; max-height: 100vh; overflow: auto; } -->
-
 <template>
     <div class="flex flex-row h-full w-full relative z-[1]">
 
