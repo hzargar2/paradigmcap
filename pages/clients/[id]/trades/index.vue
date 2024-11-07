@@ -1,18 +1,5 @@
 <script setup lang="ts">
 
-// interface Trade{
-//     ticker: string,
-//     full_ticker: string,
-//     id: string,
-//     client: string,
-//     date: string,
-//     side: string,
-//     quantity: number,
-//     price: number,
-//     commission_type: string,
-//     commission_amount: number,
-// }
-
 const router = useRouter();
 const id = router.currentRoute.value.params.id;
 const { data: trades } = await useFetch(`https://paradigmapi.pythonanywhere.com/api/clients/${id}/trades`);
@@ -44,9 +31,8 @@ const filterTrades = (event) => {
     selected_trades = filtered_trades;
 
     console.log(selected_trades)
+
 }
-
-
 
 
 </script>
@@ -54,8 +40,8 @@ const filterTrades = (event) => {
 <template>
   <div class="flex flex-col w-full h-full space-y-8">
       <span class="mx-auto ml-0 text-3xl font-medium">Trades</span>
-      <div class="flex w-full h-full space-x-24">
-          <div class="flex flex-col w-1/4 h-full">
+      <div class="flex w-full h-full space-x-12">
+          <div class="flex flex-col w-1/4 my-auto h-full">
 
               <form class="max-w-sm">
                   <label for="selected_ticker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ticker</label>
@@ -82,8 +68,8 @@ const filterTrades = (event) => {
               </form>
 
           </div>
-          <div class="flex w-3/4 h-full border border-gray-200">
-            asas
+          <div class="flex w-3/4 h-full my-auto border border-gray-200">
+            <TradeChart :trades="selected_trades"/>
           </div>
       </div>
   </div>
