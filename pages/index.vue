@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="text-5xl font-bold underline">
       testing
   </div>
 </template>
