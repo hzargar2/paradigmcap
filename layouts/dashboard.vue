@@ -8,12 +8,18 @@ definePageMeta({
 
 </script>
 
+<!--<div class="side-nav"> <div class="side-nav-sticky-container> INSERT CONTENT HERE </div> </div>-->
+
+<!--.side-nav { position: relative; display: flex; flex-direction: column; width: 192px; min-width: 192px; }-->
+
+<!--.side-nav-sticky-container { position: sticky; top: 0; width: auto; max-height: 100vh; overflow: auto; } -->
+
 <template>
-    <div class="flex flex-row h-full overflow-y-auto w-full relative z-[1]">
+    <div class="flex flex-row h-full w-full relative z-[1]">
 
-        <div class="min-w-fit w-[20%] h-full flex left-0">
+        <div class="min-w-fit w-[20%] flex h-screen sticky pt-[64px] top-0">
 
-            <div class="h-full w-full overflow-y-auto bg-slate-100 relative tracking-wider">
+            <div class="w-full overflow-y-auto bg-slate-100 tracking-wider">
                 <div class="px-8 pt-5 pb-3 backdrop-blur-md sticky top-0 flex items-center self-center text-lg font-medium whitespace-nowrap border-b border-opacity-70 border-gray-200">
                     <svg class="w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
                         <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
@@ -39,7 +45,7 @@ definePageMeta({
         </div>
 
         <!--    content for page starts here-->
-        <div class="flex flex-row overflow-x-hidden h-full w-full p-6 xl:pr-12 2xl:pr-24">
+        <div class="flex flex-row overflow-x-hidden h-full mt-[64px] w-full p-6 xl:pr-12 2xl:pr-24">
             <slot/>
         </div>
 
