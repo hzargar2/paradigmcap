@@ -77,7 +77,7 @@ const filterTrades = (event) => {
               </form>
 
           </div>
-          <div class="bg-[#232D4B] h-[450px] rounded-2xl p-4 flex w-3/4 my-auto border border-gray-200">
+          <div class="h-[450px] rounded-2xl p-4 flex w-3/4 my-auto border border-gray-200">
             <TradeChart :trades="selected_trades"/>
           </div>
       </div>

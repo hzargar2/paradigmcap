@@ -1,6 +1,7 @@
-# Nuxt Minimal Starter
+## Dashboard
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Clicking on the "Clients" tab goes to all clients. Clicking on a trade shows trades per client.
+All trades can be seen on summary page.
 
 ## Setup
 
@@ -71,5 +72,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

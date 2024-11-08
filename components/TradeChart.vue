@@ -58,7 +58,6 @@ const chartOptions = computed(() => {
             title: {
                 text: "Trades over Time",
                 display: true,
-                color: '#f7f6f2',
                 font: {
                     size: 16,
                     weight: 'normal'
@@ -71,38 +70,24 @@ const chartOptions = computed(() => {
         },
         scales: {
             x: {
-                ticks: {
-                    color: '#f7f6f2'
-                },
                 title: {
-                    color: '#f7f6f2',
                     display: true,
                     text: "Transaction Date",
                     font: {
                         size: 14
                     },
                     padding: 12
-                },
-                grid: {
-                    color: '#f7f6f2'
-                },
+                }
             },
             y: {
-                ticks: {
-                    color: '#f7f6f2'
-                },
                 title: {
-                    color: '#f7f6f2',
                     display: true,
                     text: "Quantity Transacted",
                     font: {
                         size: 14
                     },
                     padding: 12
-                },
-                grid: {
-                    color: '#f7f6f2'
-                },
+                }
             }
         },
         responsive: true,
