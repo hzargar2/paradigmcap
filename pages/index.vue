@@ -64,10 +64,10 @@ const filterTrades = (event) => {
 </script>
 
 <template>
-    <div class="flex flex-col w-full h-full space-y-24">
+    <div class="flex flex-col w-full h-full space-y-16">
         <span class="flex text-wrap ml-0 mx-auto justify-center text-3xl font-medium">Summary</span>
 
-        <div class="w-2/3 h-full grid grid-cols-2 mx-auto">
+        <div class="w-2/3 gap-x-4 h-full grid grid-cols-2 mx-auto">
             <div class="flex flex-col h-fit my-auto w-full text-xl space-y-2 text-slate-700">
                 <span><span class="font-semibold">Total AUM:</span> ${{total_aum }}M</span>
                 <span><span class="font-semibold"># Clients:</span> {{clients.items.length }}</span>
@@ -85,7 +85,7 @@ const filterTrades = (event) => {
             </div>
         </div>
 
-        <div class="flex w-full h-full space-x-12">
+        <div class="flex w-full h-full space-x-12 pt-8">
             <div class="flex flex-col w-1/4 my-auto h-full">
 
                 <form class="max-w-sm">
