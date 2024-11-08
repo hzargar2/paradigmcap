@@ -29,9 +29,6 @@ const filterTrades = (event) => {
     }
 
     selected_trades = filtered_trades;
-
-    console.log(selected_trades)
-
 }
 
 

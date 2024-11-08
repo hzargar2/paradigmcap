@@ -2,6 +2,7 @@
 
 const { data } = await useFetch('https://paradigmapi.pythonanywhere.com/api/clients')
 
+console.log(data)
 </script>
 
 <template>
