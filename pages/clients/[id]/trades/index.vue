@@ -13,7 +13,7 @@ let selected_side= ref(null);
 let commission_types = [...new Set(trades.value.map((value) => value['commission_type']))];
 let selected_commission_type= ref(null);
 
-let selected_trades = trades.value;
+let selected_trades = reactive(trades.value);
 
 const filterTrades = (event) => {
 
@@ -68,7 +68,7 @@ const filterTrades = (event) => {
               </form>
 
           </div>
-          <div class="flex w-3/4 h-full my-auto border border-gray-200">
+          <div class="bg-[#232D4B] rounded-2xl p-4 flex w-3/4 h-full my-auto border border-gray-200">
             <TradeChart :trades="selected_trades"/>
           </div>
       </div>
