@@ -58,6 +58,7 @@ const chartOptions = computed(() => {
             title: {
                 text: "Trades over Time",
                 display: true,
+                color: '#000000',
                 font: {
                     size: 16,
                     weight: 'normal'
@@ -73,6 +74,7 @@ const chartOptions = computed(() => {
                 title: {
                     display: true,
                     text: "Transaction Date",
+                    color: '#000000',
                     font: {
                         size: 14
                     },
@@ -83,6 +85,7 @@ const chartOptions = computed(() => {
                 title: {
                     display: true,
                     text: "Quantity Transacted",
+                    color: '#000000',
                     font: {
                         size: 14
                     },
