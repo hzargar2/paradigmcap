@@ -7,9 +7,7 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 let props = defineProps(['trades']);
 
-
 const chartData = computed(() => {
-    console.log("computed", props.trades);
     return {
         labels: props.trades.sort((a, b) => {
             if (a['date'] && b['date']) {
@@ -30,7 +28,14 @@ const chartData = computed(() => {
                         return row['quantity'];
                     }
                 }),
-                yAxisID: 'y'
+                yAxisID: 'y',
+                backgroundColor: props.trades.map((trade) => {
+                    if (trade['side'] === 'SELL') {
+                        return 'red';
+                    }else{
+                        return 'green'
+                    }
+                }),
             }
         ]
     }
@@ -38,108 +43,84 @@ const chartData = computed(() => {
 
 const chartOptions = computed(() => {
     return {
-        responsive: true
+        plugins: {
+            zoom: {
+                zoom: {
+                    wheel: {
+                        enabled: true,
+                    },
+                    pinch: {
+                        enabled: true
+                    },
+                    mode: 'xy',
+                }
+            },
+            title: {
+                text: "Trades over Time",
+                display: true,
+                color: '#f7f6f2',
+                font: {
+                    size: 16,
+                    weight: 'normal'
+                },
+                padding: 18
+            },
+            legend: {
+                display: false
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: '#f7f6f2'
+                },
+                title: {
+                    color: '#f7f6f2',
+                    display: true,
+                    text: "Transaction Date",
+                    font: {
+                        size: 14
+                    },
+                    padding: 12
+                },
+                grid: {
+                    color: '#f7f6f2'
+                },
+            },
+            y: {
+                ticks: {
+                    color: '#f7f6f2'
+                },
+                title: {
+                    color: '#f7f6f2',
+                    display: true,
+                    text: "Quantity Transacted",
+                    font: {
+                        size: 14
+                    },
+                    padding: 12
+                },
+                grid: {
+                    color: '#f7f6f2'
+                },
+            }
+        },
+        responsive: true,
+        maintainAspectRatio: false
     }
 })
-
-
-
-
-
-//
-// new Chart(
-//     document.getElementById("#trade_chart"),
-//     {
-//         options: {
-//             plugins: {
-//                 legend: {
-//                     labels: {
-//                         color: '#9aa5ce'
-//                     }
-//                 }
-//             },
-//             scales: {
-//                 x: {
-//                     ticks: {
-//                         color: '#9aa5ce'
-//                     },
-//                     title: {
-//                         color: '#9aa5ce',
-//                         display: true,
-//                         text: "Transaction Date",
-//                         font: {
-//                             size: 14
-//                         },
-//                         padding: 12
-//                     },
-//                     grid: {
-//                         color: '#9aa5ce'
-//                     },
-//                 },
-//                 y: {
-//                     ticks: {
-//                         color: '#9aa5ce'
-//                     },
-//                     type: 'logarithmic',
-//                     title: {
-//                         color: '#9aa5ce',
-//                         display: true,
-//                         text: "Shares Owned",
-//                         font: {
-//                             size: 14
-//                         },
-//                         padding: 12
-//                     },
-//                     max: 460000000,
-//                     grid: {
-//                         color: '#9aa5ce'
-//                     },
-//                 },
-//                 y1: {
-//                     ticks: {
-//                         color: '#9aa5ce'
-//                     },
-//                     type: 'logarithmic',
-//                     title: {
-//                         color: '#9aa5ce',
-//                         display: true,
-//                         text: "Price Per Share",
-//                         font: {
-//                             size: 14
-//                         },
-//                         padding: 12
-//                     },
-//                     position: 'right',
-//                     // grid line settings
-//                     grid: {
-//                         color: '#9aa5ce',
-//                         drawOnChartArea: false, // only want the grid lines for one axis to show up
-//                     },
-//                 }
-//             }
-//         },
-//         type: 'line',
-//         data: {
-//             labels: sorted_trades.map(row => row['date']),
-//             datasets: [
-//                 {
-//                     label: 'Quantity (# shares)',
-//                     data: sorted_trades.map(row => row['quantity']),
-//                     yAxisID: 'y'
-//                 }
-//             ]
-//         }
-//     }
-// );
 
 </script>
 
 
 <template>
-    <Bar
-        id="trade_chart"
-        :options="chartOptions"
-        :data="chartData"
-    />
+    <div class="flex w-full">
+        <Bar
+            id="trade_chart"
+            :options="chartOptions"
+            :data="chartData"
+        />
+    </div>
+
 </template>
 

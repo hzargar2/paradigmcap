@@ -41,7 +41,7 @@ const filterTrades = (event) => {
   <div class="flex flex-col w-full h-full space-y-8">
       <span class="mx-auto ml-0 text-3xl font-medium">Trades</span>
       <div class="flex w-full h-full space-x-12">
-          <div class="flex flex-col w-1/4 my-auto h-full">
+          <div class="flex flex-col w-1/4 h-full">
 
               <form class="max-w-sm">
                   <label for="selected_ticker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ticker</label>
@@ -68,7 +68,7 @@ const filterTrades = (event) => {
               </form>
 
           </div>
-          <div class="bg-[#232D4B] rounded-2xl p-4 flex w-3/4 h-full my-auto border border-gray-200">
+          <div class="bg-[#232D4B] h-[450px] rounded-2xl p-4 flex w-3/4 my-auto border border-gray-200">
             <TradeChart :trades="selected_trades"/>
           </div>
       </div>
