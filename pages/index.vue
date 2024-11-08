@@ -1,18 +1,18 @@
 <script setup lang="ts">
 
-const { data: clients } = await useFetch('https://paradigmapi.pythonanywhere.com/api/clients')
+const { data: clients } = await useFetch('https://paradigmapi.pythonanywhere.com/api/clients?limit=10000')
 
 let total_aum = clients.value.items.map((client) => {
     return client['total_aum'];
 }).reduce((pv, cv) => { return pv + cv; }, 0);
 
-let average_firm_age = clients.value.items.map((client) => {
+let average_firm_age = Math.round(((clients.value.items.map((client) => {
     return new Date().getFullYear() - client['year_established'];
-}).reduce((pv, cv) => { return pv + cv; }, 0) / clients.value.items.length;
+}).reduce((pv, cv) => { return pv + cv; }, 0) / clients.value.items.length) + Number.EPSILON) * 100) / 100
 
-let average_tier = clients.value.items.map((client) => {
+let average_tier = Math.round(((clients.value.items.map((client) => {
     return client['tier'];
-}).reduce((pv, cv) => { return pv + cv; }, 0) / clients.value.items.length;
+}).reduce((pv, cv) => { return pv + cv; }, 0) / clients.value.items.length) + Number.EPSILON) * 100) / 100
 
 let countries = clients.value.items.map((client) => {
     return client['location'].split(",").map((item) => {
@@ -20,8 +20,7 @@ let countries = clients.value.items.map((client) => {
     })[1];
 })
 
-
-const { data: trades } = await useFetch(`https://paradigmapi.pythonanywhere.com/api/trades`);
+const { data: trades } = await useFetch(`https://paradigmapi.pythonanywhere.com/api/trades?limit=10000`);
 
 let tickers = [...new Set(trades.value.items.map((value) => value['full_ticker']))];
 let selected_ticker= ref(null);
@@ -38,10 +37,13 @@ let total_commission = trades.value.items.map((trade) => {
     return trade['commission'];
 }).reduce((pv, cv) => { return pv + cv; }, 0);
 
-let average_commission = trades.value.items.map((trade) => {
+let average_commission =  Math.round(((trades.value.items.map((trade) => {
     return trade['commission'];
-}).reduce((pv, cv) => { return pv + cv; }, 0) / clients.value.items.length;
+}).reduce((pv, cv) => { return pv + cv; }, 0) / clients.value.items.length) + Number.EPSILON) * 100) / 100
 
+let average_commission_per_trade = Math.round(((trades.value.items.map((trade) => {
+    return trade['commission'];
+}).reduce((pv, cv) => { return pv + cv; }, 0) / trades.value.items.length) + Number.EPSILON) * 100) / 100
 
 const filterTrades = (event) => {
 
@@ -73,6 +75,7 @@ const filterTrades = (event) => {
                 <span><span class="font-semibold">Average Firm Tier:</span> {{average_tier}}</span>
                 <span><span class="font-semibold">Total Commission:</span> ${{total_commission}}</span>
                 <span><span class="font-semibold">Average Commission:</span> ${{average_commission}} / client</span>
+                <span><span class="font-semibold">Average Commission Per Trade:</span> ${{average_commission_per_trade}} / trade</span>
             </div>
             <div class="flex flex-col space-y-4 h-full">
                 <span class="mx-auto text-xl font-medium">Firm Country Distribution (%)</span>

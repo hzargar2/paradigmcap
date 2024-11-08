@@ -15,6 +15,15 @@ let selected_commission_type= ref(null);
 
 let selected_trades = reactive(trades.value);
 
+let total_commission = trades.value.map((trade) => {
+    return trade['commission'];
+}).reduce((pv, cv) => { return pv + cv; }, 0);
+
+let average_commission = Math.round(((trades.value.map((trade) => {
+    return trade['commission'];
+}).reduce((pv, cv) => { return pv + cv; }, 0) / trades.value.length) + Number.EPSILON) * 100) / 100
+
+
 const filterTrades = (event) => {
 
     let filtered_trades = trades.value;
@@ -38,11 +47,14 @@ const filterTrades = (event) => {
   <div class="flex flex-col w-full h-full space-y-8">
       <span class="mx-auto ml-0 text-3xl font-medium">Trades</span>
       <div class="flex w-full h-full space-x-12">
-          <div class="flex flex-col w-1/4 my-auto h-full">
-
+          <div class="flex flex-col w-1/4 my-auto h-full space-y-6">
+              <div class="flex flex-col w-full h-full">
+                  <span><span class="font-semibold">Total Commission:</span> ${{total_commission}}</span>
+                  <span><span class="font-semibold">Average Commission:</span> ${{average_commission}} / trade</span>
+              </div>
               <form class="max-w-sm">
                   <label for="selected_ticker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ticker</label>
-                  <select @change="filterTrades($event)" v-model="selected_ticker" id="selected_ticker" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select @change="filterTrades($event)" v-model="selected_ticker" id="selected_ticker" class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option selected :value="null">All</option>
                       <option v-for="item in tickers" :value="item">{{item}}</option>
                   </select>
@@ -50,7 +62,7 @@ const filterTrades = (event) => {
 
               <form class="max-w-sm">
                   <label for="selected_side" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Side</label>
-                  <select @change="filterTrades($event)" v-model="selected_side" id="selected_side" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select @change="filterTrades($event)" v-model="selected_side" id="selected_side" class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option selected :value="null">All</option>
                       <option v-for="item in sides" :value="item">{{item}}</option>
                   </select>
@@ -58,7 +70,7 @@ const filterTrades = (event) => {
 
               <form class="max-w-sm">
                   <label for="selected_commission_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Commission Type</label>
-                  <select @change="filterTrades($event)" v-model="selected_commission_type" id="selected_commission_type" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                  <select @change="filterTrades($event)" v-model="selected_commission_type" id="selected_commission_type" class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option selected :value="null">All</option>
                       <option v-for="item in commission_types" :value="item">{{item}}</option>
                   </select>

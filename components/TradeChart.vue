@@ -22,7 +22,7 @@ const chartData = computed(() => {
                         return new Date(a['date']) - new Date(b['date']);
                     }
                 }).map(row => {
-                    if (row['side'] === 'SELL') {
+                    if (row['side'].includes('SELL')) {
                         return -1 * row['quantity'];
                     }else{
                         return row['quantity'];
@@ -30,7 +30,7 @@ const chartData = computed(() => {
                 }),
                 yAxisID: 'y',
                 backgroundColor: props.trades.map((trade) => {
-                    if (trade['side'] === 'SELL') {
+                    if (trade['side'].includes('SELL')) {
                         return 'red';
                     }else{
                         return 'green'
