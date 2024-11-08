@@ -15,8 +15,7 @@ const goToTradesPage = () => {
           <span><span class="font-semibold">Type:</span> {{ props.company_type }}</span>
           <span><span class="font-semibold">Tier:</span> {{ props.tier }}</span>
           <span><span class="font-semibold">Contact:</span> {{ props.contact_name }} ({{props.contact_title}})</span>
+          <span><span class="font-semibold">Phone:</span> +{{ props.contact_phone }}</span>
       </div>
-
-
   </div>
 </template>

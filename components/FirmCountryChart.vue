@@ -14,13 +14,6 @@ for (const country of props.countries) {
 
 let sum_of_counts = Object.values(country_counts).reduce((pv, cv) => { return pv + cv; }, 0);
 
-console.log(sum_of_counts)
-console.log(Object.values(country_counts).map((val) => {
-    return val/sum_of_counts * 100;
-}))
-console.log(country_counts);
-console.log(props.countries)
-console.log(Object.values(country_counts));
 const chartData = computed(() => {
     return {
         labels: Object.keys(country_counts),
