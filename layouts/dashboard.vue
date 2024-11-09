@@ -9,9 +9,9 @@ definePageMeta({
 </script>
 
 <template>
-    <div class="flex flex-row h-full w-full relative z-[1]">
+    <div class="flex flex-row h-full w-full">
 
-        <div class="min-w-fit w-[20%] flex h-screen sticky pt-[64px] top-0">
+        <div class="min-w-fit w-[20%] flex h-screen pt-[64px] sticky top-0">
 
             <div class="w-full overflow-y-auto bg-slate-100 tracking-wider">
                 <div class="px-8 pt-5 pb-3 backdrop-blur-md sticky top-0 flex items-center self-center text-lg font-medium whitespace-nowrap border-b border-opacity-70 border-gray-200">
@@ -39,7 +39,7 @@ definePageMeta({
         </div>
 
         <!--    content for page starts here-->
-        <div class="flex flex-row overflow-x-hidden h-full mt-[64px] w-full p-6 xl:pr-12 2xl:pr-24">
+        <div class="flex flex-row overflow-x-hidden h-full mt-[64px] w-full xl:pr-12 2xl:pr-24">
             <slot/>
         </div>
 
