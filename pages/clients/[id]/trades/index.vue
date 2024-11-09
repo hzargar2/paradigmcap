@@ -44,7 +44,7 @@ const filterTrades = (event) => {
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-full space-y-8">
+  <div class="flex flex-col w-full h-full space-y-8 p-6">
       <span class="mx-auto ml-0 text-3xl font-medium">Trades</span>
       <div class="flex w-full h-full space-x-12">
           <div class="flex flex-col w-1/4 my-auto h-full space-y-6">
