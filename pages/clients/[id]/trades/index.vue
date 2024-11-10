@@ -15,11 +15,3 @@ const { data: trades } = await useFetch(`https://paradigmapi.pythonanywhere.com/
   </div>
 
 </template>
-
-
-<!--<div class="flex flex-col w-1/4 my-auto h-full space-y-6">-->
-<!--<div class="flex flex-col w-full h-full">-->
-<!--    <span><span class="font-semibold">Total Commission:</span> ${{total_commission}}</span>-->
-<!--    <span><span class="font-semibold">Average Commission:</span> ${{average_commission}} / trade</span>-->
-<!--</div>-->
-<!--</div>-->
