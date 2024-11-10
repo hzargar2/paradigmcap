@@ -15,11 +15,4 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  head: {
-    script: [
-      {
-        src: "https://cdn.jsdelivr.net/npm/hammerjs@2.0.8",
-      },
-    ],
-  }
 })
