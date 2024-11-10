@@ -14,46 +14,41 @@ for (const country of props.countries) {
 
 let sum_of_counts = Object.values(country_counts).reduce((pv, cv) => { return pv + cv; }, 0);
 
-const chartData = computed(() => {
-    return {
-        labels: Object.keys(country_counts),
-        datasets: [
-            {
-                backgroundColor: Object.values(country_counts).map((val) => {
-                    const randomNum = () => Math.floor(Math.random() * (235 - 52 + 1) + 52);
-                    const randomRGB = () => `rgb(${randomNum()}, ${randomNum()}, ${randomNum()})`;
-                    return randomRGB();
-                }),
-                data: Object.values(country_counts).map((val) => {
-                    return val/sum_of_counts * 100;
-                })
-            }
-        ]
-    }
-})
 
-const chartOptions = computed(() => {
+let pie_options = computed(() => {
     return {
-        plugins: {
-            legend: {
-                display: false
-            }
+        series: Object.values(country_counts).map((val) => {
+            return val/sum_of_counts * 100;
+        }),
+        chart: {
+            id: "pie-chart",
+            height: "100%",
+            width: "100%",
+            type: 'pie',
         },
-        responsive: true,
-        maintainAspectRatio: false
-    }
+        labels: Object.keys(country_counts),
+        responsive: [{
+            options: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
 })
 
 </script>
 
 
 <template>
-    <div class="flex w-full">
-        <Pie
-                id="firm_country_chart"
-                :options="chartOptions"
-                :data="chartData"
-        />
+    <div class="flex flex-col w-full h-full">
+        <ClientOnly>
+            <apexchart
+                type="pie"
+                :options="pie_options"
+                :series="pie_options.series"
+            ></apexchart>
+        </ClientOnly>
     </div>
 
 </template>
