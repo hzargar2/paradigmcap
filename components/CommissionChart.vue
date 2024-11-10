@@ -18,95 +18,95 @@ let selected_side= ref(null);
 let commission_types = [...new Set(props.trades.map((value) => value['commission_type']))];
 let selected_commission_type= ref(null);
 
-let total_volume = ref(props.trades.map((trade) => {
-    return trade['quantity'] * parseFloat(trade['price']);
+let total_commission = ref(props.trades.map((trade) => {
+    return trade['commission'];
 }).reduce((pv, cv) => { return pv + cv; }, 0));
 
-let average_volume_per_trade = ref(Math.round(((props.trades.map((trade) => {
-    return trade['quantity'] * parseFloat(trade['price']);
+let average_commission_per_trade = ref(Math.round(((props.trades.map((trade) => {
+    return trade['commission'];
 }).reduce((pv, cv) => { return pv + cv; }, 0) / props.trades.length) + Number.EPSILON) * 100) / 100)
+
+let average_commission_per_share = ref(Math.round(((props.trades.map((trade) => {
+    return trade['commission'] / trade['quantity'];
+}).reduce((pv, cv) => { return pv + cv; }, 0) / props.trades.length) + Number.EPSILON) * 1000000) / 1000000)
+
 
 let series = ref([
     {
-        name: "Quantity (Shares)",
+        name: "Commission ($)",
         data: props.trades.sort((a, b) => {
             if (a['date'] && b['date']) {
                 return new Date(a['date']) - new Date(b['date']);
             }
-        }).map(row => {
-            let point = {}
-
-            point['x'] = row['date'];
-
-            if (row['side'].includes('SELL')) {
-                point['y'] = -1 * row['quantity'];
-                point['fillColor'] = '#C23829';
-                point['strokeColor'] = '#C23829';
-            }else{
-                point['y'] = row['quantity'];
-                point['fillColor'] = '#1f993f';
-                point['strokeColor'] = '#1f993f';
-            }
-
-            return point;
-
+        }).map((row) => {
+            return row['commission']
         }),
+        color: "#1A56DB",
     },
 ]);
 
 let chartOptions = ref({
-        chart: {
-            id: "trade-chart",
-            type: "bar",
-            fontFamily: "Inter, sans-serif",
-            dropShadow: {
-                enabled: false,
-            },
-            toolbar: {
-                show: true,
-            },
-        },
-        tooltip: {
-            enabled: true,
-            x: {
-                show: true,
-            },
-        },
-        fill: {
-            type: "solid"
-        },
-        dataLabels: {
+    chart: {
+        id: "commission-chart",
+        type: "area",
+        fontFamily: "Inter, sans-serif",
+        dropShadow: {
             enabled: false,
         },
-        grid: {
-            show: true,
-            strokeDashArray: 4,
-            padding: {
-                left: 2,
-                right: 2,
-                top: 0
-            },
-        },
-        xaxis: {
-            categories: props.trades.sort((a, b) => {
-                if (a['date'] && b['date']) {
-                    return new Date(a['date']) - new Date(b['date']);
-                }
-            }).map(row => row['date']),
-            labels: {
-                show: true,
-            },
-            axisBorder: {
-                show: true,
-            },
-            axisTicks: {
-                show: true,
-            },
-        },
-        yaxis: {
+        toolbar: {
             show: true,
         },
-    })
+    },
+    tooltip: {
+        enabled: true,
+        x: {
+            show: true,
+        },
+    },
+    fill: {
+        type: "gradient",
+        gradient: {
+            opacityFrom: 0.55,
+            opacityTo: 0,
+            shade: "#1C64F2",
+            gradientToColors: ["#1C64F2"],
+        },
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    stroke: {
+        width: 2,
+    },
+    grid: {
+        show: false,
+        strokeDashArray: 4,
+        padding: {
+            left: 2,
+            right: 2,
+            top: 0
+        },
+    },
+    xaxis: {
+        categories: props.trades.sort((a, b) => {
+            if (a['date'] && b['date']) {
+                return new Date(a['date']) - new Date(b['date']);
+            }
+        }).map(row => row['date']),
+        labels: {
+            show: true,
+        },
+        axisBorder: {
+            show: true,
+        },
+        axisTicks: {
+            show: true,
+        },
+    },
+    yaxis: {
+        show: true,
+    },
+})
 
 const filterTrades = (event) => {
 
@@ -144,39 +144,29 @@ const filterTrades = (event) => {
 
     series.value = [
         {
-            name: "Quantity (Shares)",
+            name: "Commission ($)",
             data: filtered_trades.sort((a, b) => {
                 if (a['date'] && b['date']) {
                     return new Date(a['date']) - new Date(b['date']);
                 }
-            }).map(row => {
-                let point = {}
-
-                point['x'] = row['date'];
-
-                if (row['side'].includes('SELL')) {
-                    point['y'] = -1 * row['quantity'];
-                    point['fillColor'] = '#C23829';
-                    point['strokeColor'] = '#C23829';
-                }else{
-                    point['y'] = row['quantity'];
-                    point['fillColor'] = '#1f993f';
-                    point['strokeColor'] = '#1f993f';
-                }
-
-                return point;
-
+            }).map((row) => {
+                return row['commission']
             }),
+            color: "#1A56DB",
         }
     ]
 
-    total_volume.value = filtered_trades.map((trade) => {
-        return trade['quantity'] * parseFloat(trade['price']);
+    total_commission.value = filtered_trades.map((trade) => {
+        return trade['commission'];
     }).reduce((pv, cv) => { return pv + cv; }, 0);
 
-    average_volume_per_trade.value = Math.round(((filtered_trades.map((trade) => {
-        return trade['quantity'] * parseFloat(trade['price']);
+    average_commission_per_trade.value = Math.round(((filtered_trades.map((trade) => {
+        return trade['commission'];
     }).reduce((pv, cv) => { return pv + cv; }, 0) / filtered_trades.length) + Number.EPSILON) * 100) / 100
+
+    average_commission_per_share.value = Math.round(((filtered_trades.map((trade) => {
+        return trade['commission'] / trade['quantity'];
+    }).reduce((pv, cv) => { return pv + cv; }, 0) / filtered_trades.length) + Number.EPSILON) * 1000000) / 1000000
 
 }
 
@@ -190,12 +180,16 @@ const filterTrades = (event) => {
         <div class="flex justify-between space-x-4">
             <div class="flex justify-between space-x-6">
                 <div>
-                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">${{total_volume}}</h5>
-                    <p class="text-base font-normal text-center text-gray-500 dark:text-gray-400">Total Volume</p>
+                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">${{total_commission}}</h5>
+                    <p class="text-base font-normal text-center text-gray-500 dark:text-gray-400">Total Commission</p>
                 </div>
                 <div>
-                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">${{average_volume_per_trade}}</h5>
-                    <p class="text-base font-normal text-center text-gray-500 dark:text-gray-400">Avg. Volume / Trade</p>
+                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">${{average_commission_per_trade}}</h5>
+                    <p class="text-base font-normal text-center text-gray-500 dark:text-gray-400">Avg. Commission / Trade</p>
+                </div>
+                <div>
+                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">${{average_commission_per_share}}</h5>
+                    <p class="text-base font-normal text-center text-gray-500 dark:text-gray-400">Avg. Commission / Share</p>
                 </div>
             </div>
             <div class="flex flex-row space-x-4">
@@ -223,9 +217,9 @@ const filterTrades = (event) => {
         </div>
         <ClientOnly>
             <apexchart
-                height="500px"
-                :options="chartOptions"
-                :series="series"
+                    height="500px"
+                    :options="chartOptions"
+                    :series="series"
             ></apexchart>
         </ClientOnly>
     </div>

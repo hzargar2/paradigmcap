@@ -3,7 +3,7 @@
 const props = defineProps(["id", "company_name", "company_type", "location", "contact_name", "contact_title", "contact_email", "contact_phone", "total_aum", "year_established", "tier", "risk_profile"])
 
 const goToTradesPage = () => {
-    window.location.href = `/clients/${props.id}/trades`
+    window.location.href = `/clients/${props.id}/activity`
 }
 </script>
 

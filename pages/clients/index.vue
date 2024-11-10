@@ -1,7 +1,5 @@
 <script setup lang="ts">
 
-import {toRefs} from "#imports";
-
 const { data: clients } = await useFetch('https://paradigmapi.pythonanywhere.com/api/clients?limit=10000')
 
 let filtered_clients = toRef(clients.value.items);
