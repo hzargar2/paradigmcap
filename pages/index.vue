@@ -67,7 +67,7 @@ const filterTrades = (event) => {
     <div class="flex flex-col w-full h-full space-y-16 p-6 pb-24">
         <span class="flex text-wrap ml-0 mx-auto justify-center text-3xl font-medium">Summary</span>
 
-        <div class="w-3/4 gap-x-4 h-full grid grid-cols-2 mx-auto">
+        <div class="w-full max-w-4xl gap-x-4 h-full grid grid-cols-2 mx-auto p-6">
             <div class="flex flex-col h-fit my-auto w-full text-xl space-y-2 text-slate-700">
                 <span><span class="font-semibold">Total AUM:</span> ${{total_aum }}M</span>
                 <span><span class="font-semibold"># Clients:</span> {{clients.items.length }}</span>
