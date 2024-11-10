@@ -1,10 +1,5 @@
 <script setup>
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'vue-chartjs';
-
-ChartJS.register(ArcElement, Tooltip, Legend)
-
 let props = defineProps(['countries']);
 let country_counts = {};
 
