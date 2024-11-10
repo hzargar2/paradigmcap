@@ -103,7 +103,7 @@ let average_commission_per_trade = Math.round(((trades.value.items.map((trade) =
                             <!-- List -->
                             <ul role="list" class="space-y-4 text-base text-gray-500 dark:text-gray-400">
                                 <li v-for="[index, client] of top_10_clients.entries()" class="flex space-x-2 rtl:space-x-reverse items-center">
-                                    <span class="leading-tight">{{index + 1}}. {{ client['company_name'] }} (${{client['total_aum']}}M)</span>
+                                    <span class="leading-tight">{{index + 1}}. {{ client['company_name'] }} <span class="text-gray-700 font-semibold">- ${{client['total_aum']}}M</span></span>
                                 </li>
                             </ul>
                         </div>
