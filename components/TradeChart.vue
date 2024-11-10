@@ -1,13 +1,11 @@
 <script setup>
 
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
-
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
-
 let props = defineProps(['trades']);
 
-console.log(props.trades);
+let CADDollar = new Intl.NumberFormat('en-CA', {
+    style: 'currency',
+    currency: 'CAD',
+});
 
 let tickers = [...new Set(props.trades.map((value) => value['full_ticker']))];
 let selected_ticker= ref(null);
@@ -190,11 +188,11 @@ const filterTrades = (event) => {
         <div class="flex justify-between space-x-4">
             <div class="flex justify-between space-x-6">
                 <div>
-                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">${{total_volume}}</h5>
+                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">{{CADDollar.format(total_volume)}}</h5>
                     <p class="text-base font-normal text-center text-gray-500 dark:text-gray-400">Total Volume</p>
                 </div>
                 <div>
-                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">${{average_volume_per_trade}}</h5>
+                    <h5 class="leading-none text-center text-lg font-bold text-gray-900 dark:text-white pb-2">{{CADDollar.format(average_volume_per_trade)}}</h5>
                     <p class="text-base font-normal text-center text-gray-500 dark:text-gray-400">Avg. Volume / Trade</p>
                 </div>
             </div>
