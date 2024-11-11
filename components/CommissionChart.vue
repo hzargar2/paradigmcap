@@ -77,7 +77,7 @@ let chartOptions = ref({
         width: 2,
     },
     grid: {
-        show: false,
+        show: true,
         strokeDashArray: 4,
         padding: {
             left: 2,
